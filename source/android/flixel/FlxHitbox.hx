@@ -40,10 +40,10 @@ class FlxHitbox extends FlxSpriteGroup
 		scrollFactor.set();
 
 		hitbox = new FlxSpriteGroup();
-		hitbox.add(add(buttonLeft = createHitbox(0, 0, 'left', 0xFFFF00FF)));
-		hitbox.add(add(buttonDown = createHitbox(FlxG.width / 4, 0, 'down', 0xFF00FFFF)));
-		hitbox.add(add(buttonUp = createHitbox(FlxG.width / 2, 0, 'up', 0xFF00FF00)));
-		hitbox.add(add(buttonRight = createHitbox((FlxG.width / 2) + (FlxG.width / 4), 0, 'right', 0xFFFF0000)));
+		hitbox.add(add(buttonLeft = createHitbox(0, 0, 'left', 0xFFC473FF)));
+		hitbox.add(add(buttonDown = createHitbox(FlxG.width / 4, 0, 'down', 0xFF2FFFF4)));
+		hitbox.add(add(buttonUp = createHitbox(FlxG.width / 2, 0, 'up', 0xFF2EFFAF)));
+		hitbox.add(add(buttonRight = createHitbox((FlxG.width / 2) + (FlxG.width / 4), 0, 'right', 0xFF7375FF)));
 		hitbox.scrollFactor.set();
 	}
 
