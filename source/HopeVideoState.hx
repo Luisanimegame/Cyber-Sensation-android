@@ -17,9 +17,7 @@ import openfl.Lib;
 
 using StringTools;
 
-#if FEATURE_WEBM
 import webm.WebmPlayer;
-#end
 
 
 class HopeVideoState extends MusicBeatState
