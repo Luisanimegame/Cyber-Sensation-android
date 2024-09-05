@@ -1239,7 +1239,7 @@ class PlayState extends MusicBeatState
 					if (cutscene) {
 						FlxTransitionableState.skipNextTransIn = false;
 						FlxTransitionableState.skipNextTransOut = false;
-						video.playVideo(Asset2File.getPath(Paths.video('assets/videos/intro', new PlayState()));
+						video.playVideo(Asset2File.getPath(Paths.video('assets/videos/intro', new PlayState())));
 						
 						cutscene = false;
 					} else {
@@ -1251,7 +1251,7 @@ class PlayState extends MusicBeatState
 					if (cutscene) {
 						FlxTransitionableState.skipNextTransIn = false;
 						FlxTransitionableState.skipNextTransOut = false;
-						video.playVideo(Asset2File.getPath(Paths.video('assets/videos/cut1', new PlayState()));
+						video.playVideo(Asset2File.getPath(Paths.video('assets/videos/cut1', new PlayState())));
 						
 						cutscene = false;
 					} else {
@@ -2972,7 +2972,7 @@ class PlayState extends MusicBeatState
 							TitleState.comehere = true;
 							FlxG.save.data.reset = true;
 							
-							video.playVideo(Asset2File.getPath(Paths.video('assets/videos/cut2', new CloseState()));
+							video.playVideo(Asset2File.getPath(Paths.video('assets/videos/cut2', new CloseState())));
 								
 							//FlxG.switchState(new MainMenuState());
 							FlxG.sound.music.stop();
@@ -2983,7 +2983,7 @@ class PlayState extends MusicBeatState
 							FlxG.save.data.beattae = true;
 							FlxG.sound.music.stop();
 				            vocals.stop();
-							video.playVideo(Asset2File.getPath(Paths.video('assets/videos/end', new MainMenuState()));
+							video.playVideo(Asset2File.getPath(Paths.video('assets/videos/end', new MainMenuState())));
 								
 							//FlxG.switchState(new MainMenuState());
 								
@@ -3059,9 +3059,9 @@ class PlayState extends MusicBeatState
 					switch(SONG.song.toLowerCase())
                     {
 					    case "wear-a-mask":
-							video.playVideo(Asset2File.getPath(Paths.video('assets/videos/cut1', new PlayState()));
+							video.playVideo(Asset2File.getPath(Paths.video('assets/videos/cut1', new PlayState())));
 						//case 'release':
-						//    video.playVideo(Asset2File.getPath(Paths.video('assets/videos/cut3', new PlayState()));
+						//    video.playVideo(Asset2File.getPath(Paths.video('assets/videos/cut3', new PlayState())));
                         default:
                             LoadingState.loadAndSwitchState(new PlayState());
                      }
