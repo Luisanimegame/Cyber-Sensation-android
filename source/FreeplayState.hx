@@ -192,8 +192,8 @@ class FreeplayState extends MusicBeatState
 		scoreText.text = "PERSONAL BEST:" + lerpScore;
 		comboText.text = combo + '\n';
 
-		var upP = FlxG.keys.justPressed.UP;
-		var downP = FlxG.keys.justPressed.DOWN;
+		var upP = controls.UP;
+		var downP = controls.DOWN;
 		var accepted = controls.ACCEPT;
 
 		var gamepad:FlxGamepad = FlxG.gamepads.lastActive;
@@ -229,18 +229,18 @@ class FreeplayState extends MusicBeatState
 
 		if (songs[curSelected].songName.toLowerCase() != "last-hope" && songs[curSelected].songName.toLowerCase() != "open-system" && songs[curSelected].songName.toLowerCase() != "wear-a-mask")
 			{
-				if (FlxG.keys.justPressed.RIGHT)
+				if (controls.RIGHT)
 					changeDiff(1);
-				if (FlxG.keys.justPressed.LEFT)
+				if (controls.LEFT)
 					changeDiff(-1);
 			} 
 			else
 			{
 				curDifficulty = 2;
 				changeDiff();
-				if (FlxG.keys.justPressed.RIGHT)
+				if (controls.RIGHT)
 					changeDiff(0);
-				if (FlxG.keys.justPressed.LEFT)
+				if (controls.LEFT)
 					changeDiff(0);
 			}
 
