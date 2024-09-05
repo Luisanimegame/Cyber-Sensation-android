@@ -69,8 +69,6 @@ import Sys;
 import sys.FileSystem;
 #end
 
-import hxcodec.VideoHandler as MP4Handler;
-
 using StringTools;
 
 class PlayState extends MusicBeatState
@@ -1202,7 +1200,7 @@ class PlayState extends MusicBeatState
 		if (isStoryMode)
 		{
 			introopen = false;
-			var video:MP4Handler = new MP4Handler();
+			
 			switch (StringTools.replace(curSong," ", "-").toLowerCase())
 			{
 				case "winter-horrorland":
@@ -1239,7 +1237,6 @@ class PlayState extends MusicBeatState
 					if (cutscene) {
 						FlxTransitionableState.skipNextTransIn = false;
 						FlxTransitionableState.skipNextTransOut = false;
-						video.playVideo(Asset2File.getPath(Paths.video('assets/videos/intro', new PlayState())));
 						
 						cutscene = false;
 					} else {
@@ -1251,7 +1248,6 @@ class PlayState extends MusicBeatState
 					if (cutscene) {
 						FlxTransitionableState.skipNextTransIn = false;
 						FlxTransitionableState.skipNextTransOut = false;
-						video.playVideo(Asset2File.getPath(Paths.video('assets/videos/cut1', new PlayState())));
 						
 						cutscene = false;
 					} else {
@@ -2960,7 +2956,8 @@ class PlayState extends MusicBeatState
 				campaignScore += Math.round(songScore);
 
 				storyPlaylist.remove(storyPlaylist[0]);
-
+				
+				var video:MP4Handler = new MP4Handler();
 				if (storyPlaylist.length <= 0)
 				{
 					transIn = FlxTransitionableState.defaultTransIn;
@@ -3056,12 +3053,13 @@ class PlayState extends MusicBeatState
 
 					PlayState.SONG = Song.loadFromJson(poop, PlayState.storyPlaylist[0]);
 					FlxG.sound.music.stop();
+					var video:MP4Handler = new MP4Handler();
 					switch(SONG.song.toLowerCase())
                     {
 					    case "wear-a-mask":
-							video.playVideo(Asset2File.getPath(Paths.video('assets/videos/cut1', new PlayState())));
+							
 						//case 'release':
-						//    video.playVideo(Asset2File.getPath(Paths.video('assets/videos/cut3', new PlayState())));
+						//    
                         default:
                             LoadingState.loadAndSwitchState(new PlayState());
                      }
