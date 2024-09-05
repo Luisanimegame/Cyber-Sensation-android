@@ -7,7 +7,7 @@ import openfl.ui.Keyboard;
 import openfl.events.KeyboardEvent;
 import Replay.Ana;
 import Replay.Analysis;
-#if cpp
+#if !cpp
 import webm.WebmPlayer;
 #end
 import flixel.input.keyboard.FlxKey;
@@ -2913,15 +2913,6 @@ class PlayState extends MusicBeatState
 
 		if (isStoryMode)
 			campaignMisses = misses;
-
-		if (!loadRep)
-			rep.SaveReplay(saveNotes, saveJudge, replayAna);
-		else
-		{
-			PlayStateChangeables.botPlay = false;
-			PlayStateChangeables.scrollSpeed = 1;
-			PlayStateChangeables.useDownscroll = false;
-		}
 
 		if (FlxG.save.data.fpsCap > 290)
 			(cast (Lib.current.getChildAt(0), Main)).setFPSCap(290);
