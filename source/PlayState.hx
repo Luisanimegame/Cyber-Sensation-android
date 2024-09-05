@@ -7,6 +7,7 @@ import openfl.ui.Keyboard;
 import openfl.events.KeyboardEvent;
 import Replay.Ana;
 import Replay.Analysis;
+import webm.WebmPlayer;
 import flixel.input.keyboard.FlxKey;
 import haxe.Exception;
 import openfl.geom.Matrix;
@@ -1200,7 +1201,6 @@ class PlayState extends MusicBeatState
 		if (isStoryMode)
 		{
 			introopen = false;
-			
 			switch (StringTools.replace(curSong," ", "-").toLowerCase())
 			{
 				case "winter-horrorland":
@@ -1237,6 +1237,7 @@ class PlayState extends MusicBeatState
 					if (cutscene) {
 						FlxTransitionableState.skipNextTransIn = false;
 						FlxTransitionableState.skipNextTransOut = false;
+						LoadingState.loadAndSwitchState(new VideoState("assets/videos/intro.webm", new PlayState()));
 						
 						cutscene = false;
 					} else {
@@ -1248,6 +1249,7 @@ class PlayState extends MusicBeatState
 					if (cutscene) {
 						FlxTransitionableState.skipNextTransIn = false;
 						FlxTransitionableState.skipNextTransOut = false;
+						LoadingState.loadAndSwitchState(new VideoState("assets/videos/cut1.webm", new PlayState()));
 						
 						cutscene = false;
 					} else {
@@ -2956,8 +2958,7 @@ class PlayState extends MusicBeatState
 				campaignScore += Math.round(songScore);
 
 				storyPlaylist.remove(storyPlaylist[0]);
-				
-				var video:MP4Handler = new MP4Handler();
+
 				if (storyPlaylist.length <= 0)
 				{
 					transIn = FlxTransitionableState.defaultTransIn;
@@ -2969,7 +2970,7 @@ class PlayState extends MusicBeatState
 							TitleState.comehere = true;
 							FlxG.save.data.reset = true;
 							
-							video.playVideo(Asset2File.getPath(Paths.video('assets/videos/cut2', new CloseState())));
+							LoadingState.loadAndSwitchState(new VideoState("assets/videos/cut2.webm", new CloseState()));
 								
 							//FlxG.switchState(new MainMenuState());
 							FlxG.sound.music.stop();
@@ -2980,7 +2981,7 @@ class PlayState extends MusicBeatState
 							FlxG.save.data.beattae = true;
 							FlxG.sound.music.stop();
 				            vocals.stop();
-							video.playVideo(Asset2File.getPath(Paths.video('assets/videos/end', new MainMenuState())));
+							LoadingState.loadAndSwitchState(new VideoState("assets/videos/end.webm", new MainMenuState()));
 								
 							//FlxG.switchState(new MainMenuState());
 								
@@ -3053,13 +3054,12 @@ class PlayState extends MusicBeatState
 
 					PlayState.SONG = Song.loadFromJson(poop, PlayState.storyPlaylist[0]);
 					FlxG.sound.music.stop();
-					var video:MP4Handler = new MP4Handler();
 					switch(SONG.song.toLowerCase())
                     {
 					    case "wear-a-mask":
-							
+				            LoadingState.loadAndSwitchState(new VideoState("assets/videos/cut1.webm",new PlayState()));
 						//case 'release':
-						//    
+						//	LoadingState.loadAndSwitchState(new VideoState("assets/videos/cut3.webm",new PlayState()));
                         default:
                             LoadingState.loadAndSwitchState(new PlayState());
                      }
@@ -3608,6 +3608,8 @@ class PlayState extends MusicBeatState
 			public var fuckingVolume:Float = 1;
 			public var useVideo = false;
 
+			public static var webmHandler:WebmHandler;
+
 			public var playingDathing = false;
 
 			public var videoSprite:FlxSprite;
@@ -3631,6 +3633,63 @@ class PlayState extends MusicBeatState
 			{ 
 				// nada 
 			}
+
+
+			public function backgroundVideo(source:String) // for background videos
+				{
+					#if FEATURE_WEBM
+					useVideo = true;
+			
+					FlxG.stage.window.onFocusOut.add(focusOut);
+					FlxG.stage.window.onFocusIn.add(focusIn);
+
+					var ourSource:String = "assets/videos/daWeirdVid/dontDelete.webm";
+					WebmPlayer.SKIP_STEP_LIMIT = 90;
+					var str1:String = "WEBM SHIT"; 
+					webmHandler = new WebmHandler();
+					webmHandler.source(ourSource);
+					webmHandler.makePlayer();
+					webmHandler.webm.name = str1;
+			
+					GlobalVideo.setWebm(webmHandler);
+
+					GlobalVideo.get().source(source);
+					GlobalVideo.get().clearPause();
+					if (GlobalVideo.isWebm)
+					{
+						GlobalVideo.get().updatePlayer();
+					}
+					GlobalVideo.get().show();
+			
+					if (GlobalVideo.isWebm)
+					{
+						GlobalVideo.get().restart();
+					} else {
+						GlobalVideo.get().play();
+					}
+					
+					var data = webmHandler.webm.bitmapData;
+			
+					videoSprite = new FlxSprite(-470,-30).loadGraphic(data);
+			
+					videoSprite.setGraphicSize(Std.int(videoSprite.width * 1.2));
+			
+					remove(gf);
+					remove(boyfriend);
+					remove(dad);
+					add(videoSprite);
+					add(gf);
+					add(boyfriend);
+					add(dad);
+			
+					trace('poggers');
+			
+					if (!songStarted)
+						webmHandler.pause();
+					else
+						webmHandler.resume();
+					#end
+				}
 
 	function noteMiss(direction:Int = 1, daNote:Note):Void
 	{
