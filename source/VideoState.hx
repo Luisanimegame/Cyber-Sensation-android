@@ -33,12 +33,16 @@ class VideoState extends MusicBeatState
 	public var doShit:Bool = false;
 	public var pauseText:String = "Press P To Pause/Unpause";
 
-	public function new(source:String, toTrans:FlxState)
+	public function new(source:String, toTrans:FlxState, frameSkipLimit:Int = -1)
 	{
 		super();
 		
 		leSource = source;
 		transClass = toTrans;
+		if (frameSkipLimit != -1 && GlobalVideo.isWebm)
+		{
+			GlobalVideo.getWebm().webm.SKIP_STEP_LIMIT = frameSkipLimit;	
+		}
 	}
 	
 	override function create()
@@ -118,6 +122,14 @@ class VideoState extends MusicBeatState
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
+
+		#if mobile 
+		var justTouched:Bool = false;
+
+		for (touch in FlxG.touches.list) 
+			if (touch.justPressed)
+				justTouched = true;
+		#end
 		
 		if (useSound)
 		{
@@ -183,14 +195,14 @@ class VideoState extends MusicBeatState
 			}
 		}
 		
-		if (GlobalVideo.get().ended || GlobalVideo.get().stopped)
+		if (#if mobile justTouched || #end controls.ACCEPT || GlobalVideo.get().ended || GlobalVideo.get().stopped)
 		{
 			txt.visible = false;
 			GlobalVideo.get().hide();
 			GlobalVideo.get().stop();
 		}
 		
-		if (GlobalVideo.get().ended)
+		if (#if mobile justTouched || #end controls.ACCEPT || GlobalVideo.get().ended)
 		{
 			notDone = false;
 			FlxG.sound.music.volume = fuckingVolume;
