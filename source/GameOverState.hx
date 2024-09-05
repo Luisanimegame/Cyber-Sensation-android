@@ -43,6 +43,10 @@ class GameOverState extends FlxTransitionableState
 			restart.alpha = 0;
 			restart.antialiasing = true;
 			add(restart);
+			
+		#if android
+                addVirtualPad(NONE, A_B);
+                #end
 
 		FlxG.sound.music.fadeOut(2, FlxG.sound.music.volume * 0.6);
 

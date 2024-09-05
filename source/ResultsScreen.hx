@@ -172,7 +172,15 @@ class ResultsScreen extends FlxSubState
 
         // keybinds
 
-        if (PlayerSettings.player1.controls.ACCEPT)
+		#if mobile
+        var jusTouched:Bool = false;
+
+        for (touch in FlxG.touches.list)
+          if (touch.justPressed)
+            jusTouched = true;
+        #end
+
+        if (PlayerSettings.player1.controls.ACCEPT #if mobile || jusTouched #end)
         {
             music.fadeOut(0.3);
             
@@ -199,7 +207,7 @@ class ResultsScreen extends FlxSubState
                 FlxG.switchState(new FreeplayState());
         }
 
-        if (FlxG.keys.justPressed.F1)
+        if (FlxG.keys.justPressed.F1 #if android || FlxG.android.justReleased.BACK #end)
         {
             trace(PlayState.rep.path);
             PlayState.rep = Replay.LoadReplay(PlayState.rep.path);
