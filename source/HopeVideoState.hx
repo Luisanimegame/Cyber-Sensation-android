@@ -17,7 +17,7 @@ import openfl.Lib;
 
 using StringTools;
 
-#if !cpp
+#if FEATURE_WEBM
 import webm.WebmPlayer;
 #end
 
