@@ -200,19 +200,19 @@ class FreeplayState extends MusicBeatState
 
 		if (gamepad != null)
 		{
-			if (gamepad.justPressed.DPAD_UP)
+			if (controls.UP_P)
 			{
 				changeSelection(-1);
 			}
-			if (gamepad.justPressed.DPAD_DOWN)
+			if (controls.DOWN_P)
 			{
 				changeSelection(1);
 			}
-			if (gamepad.justPressed.DPAD_LEFT)
+			if (controls.LEFT_P)
 			{
 				changeDiff(-1);
 			}
-			if (gamepad.justPressed.DPAD_RIGHT)
+			if (controls.RIGHT_P)
 			{
 				changeDiff(1);
 			}

@@ -138,11 +138,11 @@ class PauseSubState extends MusicBeatSubstate
 		}
 		var songPath = 'assets/data/' + songLowercase + '/';
 
-		if (upP)
+		if (controls.UP_P)
 		{
 			changeSelection(-1);
    
-		}else if (downP)
+		}else if (controls.DOWN_P)
 		{
 			changeSelection(1);
 		}
