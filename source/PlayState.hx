@@ -3451,8 +3451,8 @@ class PlayState extends MusicBeatState
 					});
 				}
 		 
-				if (KeyBinds.gamepad && !FlxG.keys.justPressed.ANY)
-				{
+				/*if (KeyBinds.gamepad && !FlxG.keys.justPressed.ANY)
+				{*/
 					// PRESSES, check for note hits
 					if (pressArray.contains(true) && generatedMusic)
 					{
@@ -3542,7 +3542,7 @@ class PlayState extends MusicBeatState
 						for (i in anas)
 							if (i != null)
 								replayAna.anaArray.push(i); // put em all there
-				}
+				//}
 				notes.forEachAlive(function(daNote:Note)
 				{
 					if(PlayStateChangeables.useDownscroll && daNote.y > strumLine.y ||
